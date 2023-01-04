@@ -3,12 +3,52 @@
  */
 package krpcj.fsw;
 
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Scanner;
+
+import krpc.client.Connection;
+import krpc.client.services.KRPC;
+import krpcj.fsw.config.Constants;
+
 public class App {
     public String getGreeting() {
         return "Hello World!";
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         System.out.println(new App().getGreeting());
+
+        Scanner scanner = new Scanner(new InputStreamReader(System.in));
+        boolean endProg = false;
+
+        // Scan for input continuously until quit
+        while (!endProg) {
+            int input = scanner.nextInt();
+            switch (input) {
+            case 0:
+                endProg = true;
+                break;
+            case 1:
+                System.out.println("Connecting to KRPC server...");
+                Connection conn = connectToServer();
+                KRPC krpc = KRPC.newInstance(conn);
+                System.out.println(krpc.getStatus().getVersion());
+                break;
+            default:
+                System.out.println("Unrecognized input: " + input);
+            }
+        }
+    }
+
+    protected static Connection connectToServer() throws Exception {
+        try {
+            Connection conn = Connection.newInstance(Constants.CLIENT_NAME, Constants.SERVER_IP, Constants.SERVER_RPC_PORT, Constants.SERVER_STREAM_PORT);
+            return conn;
+        } catch (IOException e) {
+            throw new Exception("No suitable KRPC server running! " + e.getMessage(), e);
+        } catch (Exception e) {
+            throw new Exception ("Unknown issue when connecting to server!" + e.getMessage(), e);
+        }
     }
 }
