@@ -19,12 +19,27 @@ public class App {
     public static void main(String[] args) throws Exception {
         System.out.println(new App().getGreeting());
 
-        Scanner scanner = new Scanner(new InputStreamReader(System.in));
+        Scanner scanner = new Scanner(System.in);
         boolean endProg = false;
 
         // Scan for input continuously until quit
         while (!endProg) {
+
+            // Skip if no input
+            if (!scanner.hasNext()) {
+                continue;
+            }
+            
+            // Skip if input is not an integer
+            if (!scanner.hasNextInt()) {
+                String input = scanner.next(); // Dequeue whatever character was provided
+                System.out.println("Disregarding: " + input);
+                continue;
+            }
+
+            // Fetch integer
             int input = scanner.nextInt();
+            System.out.println("Input: " + input);
             switch (input) {
             case 0:
                 endProg = true;
@@ -39,6 +54,7 @@ public class App {
                 System.out.println("Unrecognized input: " + input);
             }
         }
+        scanner.close();
     }
 
     protected static Connection connectToServer() throws Exception {
