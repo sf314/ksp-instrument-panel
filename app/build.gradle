@@ -39,6 +39,14 @@ testing {
     }
 }
 
+// By default, the Gradle run task executes the app in a child process, which is
+// fed an empty input stream. To change this, we enforce that System.in is used
+// for the input stream to the child process.
+//https://medium.com/@mglover/running-a-command-line-app-from-gradle-62f88b3f14c2
+run {
+    standardInput = System.in
+}
+
 application {
     // Define the main class for the application.
     mainClass = 'krpcj.fsw.App'
