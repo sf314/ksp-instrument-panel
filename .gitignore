@@ -3,6 +3,7 @@
 
 # Ignore Gradle build artifacts
 build
+app/bin
 **.class
 
 # Ignore personal settings
