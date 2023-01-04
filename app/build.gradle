@@ -22,7 +22,7 @@ dependencies {
     implementation 'com.google.guava:guava:31.1-jre'
 
     // Declare location of local KRPC install
-    implementation files('locallibs/krpc-java-0.4.8.jar')
+    implementation files('src/main/resources/krpc-java-0.4.8.jar')
 
     // KRPC dependencies:
     implementation 'com.google.protobuf:protobuf-java:3.21.12'
