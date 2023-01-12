@@ -10,6 +10,8 @@ import java.util.Scanner;
 import krpc.client.Connection;
 import krpc.client.services.KRPC;
 import krpcj.fsw.config.Constants;
+import krpcj.fsw.data.Telemetry;
+import krpcj.fsw.ui.InstrumentPanel;
 
 public class App {
     public String getGreeting() {
@@ -22,6 +24,9 @@ public class App {
         Scanner scanner = new Scanner(System.in);
         boolean endProg = false;
 
+        InstrumentPanel instrumentPanel = setupInstrumentPanel();
+        Telemetry telemetry = new Telemetry();
+
         // Scan for input continuously until quit
         while (!endProg) {
 
@@ -29,7 +34,7 @@ public class App {
             if (!scanner.hasNext()) {
                 continue;
             }
-            
+
             // Skip if input is not an integer
             if (!scanner.hasNextInt()) {
                 String input = scanner.next(); // Dequeue whatever character was provided
@@ -66,5 +71,10 @@ public class App {
         } catch (Exception e) {
             throw new Exception ("Unknown issue when connecting to server!" + e.getMessage(), e);
         }
+    }
+
+    protected static InstrumentPanel setupInstrumentPanel() {
+        InstrumentPanel instrumentPanel = new InstrumentPanel();
+        return instrumentPanel;
     }
 }
