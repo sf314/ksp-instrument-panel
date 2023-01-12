@@ -60,6 +60,7 @@ public class App {
             }
         }
         scanner.close();
+        instrumentPanel.closeWindow();
     }
 
     protected static Connection connectToServer() throws Exception {
