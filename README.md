@@ -5,6 +5,22 @@ UI to display telemetry. The UI aims to be akin to a real aircraft's instrument
 panel, featuring at a minimum the current airspeed, altitude, and compass
 heading.
 
+## Quickstart
+
+The provided Makefile makes it easy for those who are familiar with the `make`
+system:
+
+```sh
+make
+make run
+make clean
+```
+
+These are basically just aliases for gradle commands, i.e.:
+```sh
+./gradlew clean build run
+```
+
 ## Project Startup Documentation
 
 The following are the steps I took to initialize this project.
