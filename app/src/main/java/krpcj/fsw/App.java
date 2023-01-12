@@ -4,7 +4,6 @@
 package krpcj.fsw;
 
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.Scanner;
 
 import krpc.client.Connection;
@@ -54,6 +53,11 @@ public class App {
                 Connection conn = connectToServer();
                 KRPC krpc = KRPC.newInstance(conn);
                 System.out.println(krpc.getStatus().getVersion());
+                break;
+            case 2:
+                System.out.println("Updating telemetry!");
+                telemetry.setAirspeed(Math.random() * 160);
+                instrumentPanel.updateTelem(telemetry);
                 break;
             default:
                 System.out.println("Unrecognized input: " + input);
