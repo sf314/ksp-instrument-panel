@@ -12,13 +12,18 @@ import krpcj.fsw.config.Constants;
 import krpcj.fsw.data.Telemetry;
 import krpcj.fsw.ui.InstrumentPanel;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class App {
+
+    private static final Logger logger = LoggerFactory.getLogger(App.class.getSimpleName());
     public String getGreeting() {
         return "Hello World!";
     }
 
     public static void main(String[] args) throws Exception {
-        System.out.println(new App().getGreeting());
+        logger.info(new App().getGreeting());
 
         Scanner scanner = new Scanner(System.in);
         boolean endProg = false;
@@ -37,32 +42,32 @@ public class App {
             // Skip if input is not an integer
             if (!scanner.hasNextInt()) {
                 String input = scanner.next(); // Dequeue whatever character was provided
-                System.out.println("Disregarding: " + input);
+                logger.info("Disregarding: " + input);
                 continue;
             }
 
             // Fetch integer
             int input = scanner.nextInt();
-            System.out.println("Input: " + input);
+            logger.info("Input: " + input);
             switch (input) {
             case 0:
                 endProg = true;
                 break;
             case 1:
-                System.out.println("Connecting to KRPC server...");
+                logger.info("Connecting to KRPC server...");
                 Connection conn = connectToServer();
                 KRPC krpc = KRPC.newInstance(conn);
-                System.out.println(krpc.getStatus().getVersion());
+                logger.info(krpc.getStatus().getVersion());
                 break;
             case 2:
-                System.out.println("Updating telemetry!");
+                logger.info("Updating telemetry!");
                 telemetry.setAirspeed(Math.random() * 160);
                 telemetry.setPitch(Math.random() * 180 - 90);
                 telemetry.setRoll(Math.random() * 360 - 180);
                 instrumentPanel.updateTelem(telemetry);
                 break;
             default:
-                System.out.println("Unrecognized input: " + input);
+                logger.info("Unrecognized input: " + input);
             }
         }
         scanner.close();
