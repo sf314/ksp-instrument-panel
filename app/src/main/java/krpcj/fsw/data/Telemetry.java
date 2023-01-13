@@ -2,6 +2,10 @@ package krpcj.fsw.data;
 
 public class Telemetry {
 
+    private long timestamp; // unix epoch time; the time this telem packet was captured
+
+    private long met; // in-game MET
+
     private double airspeed; // Airspeed indicator
 
     private double altitude; // Altimeter
@@ -18,6 +22,22 @@ public class Telemetry {
 
     public Telemetry() {
 
+    }
+
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public long getMet() {
+        return met;
+    }
+
+    public void setMet(long met) {
+        this.met = met;
     }
 
     public double getAirspeed() {
