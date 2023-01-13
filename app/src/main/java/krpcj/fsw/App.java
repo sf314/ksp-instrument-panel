@@ -57,6 +57,8 @@ public class App {
             case 2:
                 System.out.println("Updating telemetry!");
                 telemetry.setAirspeed(Math.random() * 160);
+                telemetry.setPitch(Math.random() * 180 - 90);
+                telemetry.setRoll(Math.random() * 360 - 180);
                 instrumentPanel.updateTelem(telemetry);
                 break;
             default:

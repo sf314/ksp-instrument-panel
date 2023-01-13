@@ -23,6 +23,7 @@ public class InstrumentPanel {
 
     // Panels
     private AirspeedIndicator airspeedIndicator;
+    private AttitudeIndicator attitudeIndicator;
 
     /**
      * Constructor: Initialize, configure, and display the frame.
@@ -58,6 +59,7 @@ public class InstrumentPanel {
 
         // Update all gauges
         this.airspeedIndicator.updateValue(telem.getAirspeed());
+        this.attitudeIndicator.updateValue(telem.getPitch(), telem.getRoll());
 
         // Refresh!
         this.frame.invalidate();
@@ -93,7 +95,8 @@ public class InstrumentPanel {
         this.airspeedIndicator = new AirspeedIndicator();
         frame.add(airspeedIndicator);
 
-        frame.add(new JLabel("2. Horizon: ¯\\•/¯"));
+        this.attitudeIndicator = new AttitudeIndicator();
+        frame.add(attitudeIndicator);
         frame.add(new JLabel("3. Altitude: 1300ft"));
 
         frame.add(new JLabel("4. Compass: 160°"));
