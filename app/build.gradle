@@ -21,6 +21,9 @@ dependencies {
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:31.1-jre'
 
+    implementation 'org.slf4j:slf4j-api:2.0.6'
+    implementation 'org.slf4j:slf4j-simple:2.0.6' // Better than slf4j-jdk14
+
     // Declare location of local KRPC install
     implementation files('src/main/resources/krpc-java-0.4.8.jar')
 
