@@ -22,13 +22,13 @@ public class App {
         return "Hello World!";
     }
 
-    public static void main(String[] args) throws Exception {
-        logger.info(new App().getGreeting());
+    public void run() throws Exception {
+        logger.info(this.getGreeting());
 
         Scanner scanner = new Scanner(System.in);
         boolean endProg = false;
 
-        InstrumentPanel instrumentPanel = setupInstrumentPanel();
+        InstrumentPanel instrumentPanel = this.setupInstrumentPanel();
         Telemetry telemetry = new Telemetry();
 
         // Scan for input continuously until quit
@@ -55,7 +55,7 @@ public class App {
                 break;
             case 1:
                 logger.info("Connecting to KRPC server...");
-                Connection conn = connectToServer();
+                Connection conn = this.connectToServer();
                 KRPC krpc = KRPC.newInstance(conn);
                 logger.info(krpc.getStatus().getVersion());
                 break;
@@ -74,7 +74,7 @@ public class App {
         instrumentPanel.closeWindow();
     }
 
-    protected static Connection connectToServer() throws Exception {
+    protected Connection connectToServer() throws Exception {
         try {
             Connection conn = Connection.newInstance(Constants.CLIENT_NAME, Constants.SERVER_IP, Constants.SERVER_RPC_PORT, Constants.SERVER_STREAM_PORT);
             return conn;
@@ -85,7 +85,7 @@ public class App {
         }
     }
 
-    protected static InstrumentPanel setupInstrumentPanel() {
+    protected InstrumentPanel setupInstrumentPanel() {
         InstrumentPanel instrumentPanel = new InstrumentPanel();
         return instrumentPanel;
     }

@@ -52,5 +52,5 @@ run {
 
 application {
     // Define the main class for the application.
-    mainClass = 'krpcj.fsw.App'
+    mainClass = 'krpcj.fsw.KrpcjMain'
 }
