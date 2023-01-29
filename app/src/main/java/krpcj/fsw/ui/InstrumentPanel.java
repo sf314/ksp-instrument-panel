@@ -4,6 +4,7 @@ import java.awt.GridLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import krpcj.fsw.computer.FlightComputer;
 import krpcj.fsw.data.Telemetry;
 
 /**
@@ -25,6 +26,9 @@ public class InstrumentPanel {
     private AirspeedIndicator airspeedIndicator;
     private AttitudeIndicator attitudeIndicator;
 
+    // Computer
+    private FlightComputer flightComputer;
+
     /**
      * Constructor: Initialize, configure, and display the frame.
      */
@@ -40,6 +44,9 @@ public class InstrumentPanel {
 
         // Display frame
         this.frame.setVisible(true);
+
+        // Initialize flight computer
+        this.flightComputer = new FlightComputer();
     }
 
     /**
@@ -53,13 +60,13 @@ public class InstrumentPanel {
      * Update the instrument panel data with the provided telemetry
      * @param telem
      */
-    public void updateTelem(Telemetry telem) {
+    public void updateTelem() {
         // Save for later reference
-        this.telemSnapshot = telem;
+        this.telemSnapshot = this.flightComputer.getTelemetrySnapshot();
 
         // Update all gauges
-        this.airspeedIndicator.updateValue(telem.getAirspeed());
-        this.attitudeIndicator.updateValue(telem.getPitch(), telem.getRoll());
+        this.airspeedIndicator.updateValue(this.telemSnapshot.getAirspeed());
+        this.attitudeIndicator.updateValue(this.telemSnapshot.getPitch(), this.telemSnapshot.getRoll());
 
         // Refresh!
         this.frame.invalidate();

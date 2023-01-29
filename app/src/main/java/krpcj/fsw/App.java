@@ -33,6 +33,7 @@ public class App {
 
         // Scan for input continuously until quit
         while (!endProg) {
+            logger.info("Scanning...");
 
             // Skip if no input
             if (!scanner.hasNext()) {
@@ -55,16 +56,13 @@ public class App {
                 break;
             case 1:
                 logger.info("Connecting to KRPC server...");
-                Connection conn = this.connectToServer();
-                KRPC krpc = KRPC.newInstance(conn);
-                logger.info(krpc.getStatus().getVersion());
+                // Connection conn = this.connectToServer();
+                // KRPC krpc = KRPC.newInstance(conn);
+                // logger.info(krpc.getStatus().getVersion());
                 break;
             case 2:
                 logger.info("Updating telemetry!");
-                telemetry.setAirspeed(Math.random() * 160);
-                telemetry.setPitch(Math.random() * 180 - 90);
-                telemetry.setRoll(Math.random() * 360 - 180);
-                instrumentPanel.updateTelem(telemetry);
+                instrumentPanel.updateTelem();
                 break;
             default:
                 logger.info("Unrecognized input: " + input);
