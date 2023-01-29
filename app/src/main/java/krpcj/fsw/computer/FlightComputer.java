@@ -10,8 +10,9 @@ public class FlightComputer {
 
     // Default constructor
     public FlightComputer() {
-        this.driver = new KrpcDriver();
-        this.driver.initDriver();
+        // TODO: DISABLE AFTER TESTING
+        // this.driver = new KrpcDriver();
+        // this.driver.initDriver();
     }
 
     // Test constructor
@@ -32,8 +33,18 @@ public class FlightComputer {
 
     public Telemetry getTelemetrySnapshot() {
         // Read telemetry from driver
+        Telemetry telem = new Telemetry();
+        // telem.setAltitude(this.driver.getASL());
+        // telem.setvSpeed(this.driver.getVerticalSpeed());
+
+        // TODO: DISABLE AFTER TESTING
+        telem.setAltitude(Math.random() * 10000);
+        telem.setAirspeed(Math.random() * 200.0);
+        telem.setvSpeed(Math.random() * 30 - 15.0);
+        telem.setPitch(Math.random() * 90 - 45.0);
+        telem.setRoll(Math.random() * 90 - 45.0);
 
         // Save current snapshot to FDR
-        return null;
+        return telem;
     }
 }
