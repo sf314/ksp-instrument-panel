@@ -15,6 +15,8 @@ Data flow:
 - Use packet to update UI
   - Alert on events/warnings in the UI
 - Telemetry snapshots are saved and referencable (singleton?)
+- All telemetry is in metric, unless otherwise stated.
+  - Unit conversion should occur downstream, i.e. in the UI
 
 KRPC flight data: assemble packet, which is basically UI state
 - Flight data recorder (array?)
