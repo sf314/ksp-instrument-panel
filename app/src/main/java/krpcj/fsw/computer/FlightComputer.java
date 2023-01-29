@@ -10,13 +10,24 @@ public class FlightComputer {
 
     // Default constructor
     public FlightComputer() {
-
+        this.driver = new KrpcDriver();
+        this.driver.initDriver();
     }
 
     // Test constructor
     public FlightComputer(KrpcDriver driver, FlightDataRecorder fdr) {
         this.driver = driver;
         this.fdr = fdr;
+    }
+
+    public void powerOff() {
+        // i.e. from UI control
+        this.driver.disconnect();
+    }
+
+    public void powerOn() {
+        // i.e. from UI control
+        this.driver.initDriver();
     }
 
     public Telemetry getTelemetrySnapshot() {
