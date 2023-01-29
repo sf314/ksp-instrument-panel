@@ -18,7 +18,7 @@ Data flow:
 - All telemetry is in metric, unless otherwise stated.
   - Unit conversion should occur downstream, i.e. in the UI
 
-KRPC flight data: assemble packet, which is basically UI state
+KRPC flight computer: assemble packet, which is basically UI state
 - Flight data recorder (array?)
   - Altimeter: display altitude
   - VSI: display vertical speed
