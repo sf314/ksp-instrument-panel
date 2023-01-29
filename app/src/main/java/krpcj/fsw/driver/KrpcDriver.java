@@ -180,5 +180,37 @@ public class KrpcDriver {
 
     // region: Motion data *****************************************************
 
+    public Double getSpeed() {
+        try {
+            return this.flightInfoSurf.getSpeed();
+        } catch (RPCException e) {
+            throw new DriverException("Driver failed to read speed: " + e.getMessage(), e);
+        }
+    }
+
+    public Double getGroundSpeed() {
+        try {
+            return this.flightInfoSurf.getHorizontalSpeed();
+        } catch (RPCException e) {
+            throw new DriverException("Driver failed to read ground speed: " + e.getMessage(), e);
+        }
+    }
+
+    public Double getVerticalSpeed() {
+        try {
+            return this.flightInfoSurf.getVerticalSpeed();
+        } catch (RPCException e) {
+            throw new DriverException("Driver failed to read vertical speed: " + e.getMessage(), e);
+        }
+    }
+
+    public Double getMach() {
+        try {
+            return Double.valueOf(this.flightInfoSurf.getMach());
+        } catch (RPCException e) {
+            throw new DriverException("Driver failed to read mach: " + e.getMessage(), e);
+        }
+    }
+
     // endregion ***************************************************************
 }
