@@ -20,6 +20,12 @@ public class Telemetry {
     private double ilsHorizDiff; // ILS
     private double ilsVertDiff;
 
+    // Control input monitoring
+    private double throttleState;
+    private double pitchSetting;
+    private double rollSetting;
+    private double yawSetting;
+
     public Telemetry() {
 
     }
@@ -102,5 +108,37 @@ public class Telemetry {
 
     public void setIlsVertDiff(double ilsVertDiff) {
         this.ilsVertDiff = ilsVertDiff;
+    }
+
+    public double getThrottleState() {
+        return throttleState;
+    }
+
+    public void setThrottle(double throttle) {
+        this.throttleState = throttle;
+    }
+
+    public double getPitchSetting() {
+        return pitchSetting;
+    }
+
+    public void setPitchSetting(double pitchSetting) {
+        this.pitchSetting = pitchSetting;
+    }
+
+    public double getRollSetting() {
+        return rollSetting;
+    }
+
+    public void setRollSetting(double rollSetting) {
+        this.rollSetting = rollSetting;
+    }
+
+    public double getYawSetting() {
+        return yawSetting;
+    }
+
+    public void setYawSetting(double yawSetting) {
+        this.yawSetting = yawSetting;
     }
 }
