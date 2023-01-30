@@ -103,6 +103,9 @@ public class KrpcDriver {
         try {
             this.refFrameVessel = this.vessel.getReferenceFrame();
             this.refFrameSurf = this.vessel.getSurfaceReferenceFrame();
+
+            this.flightInfoSurf = this.vessel.flight(this.refFrameSurf);
+            this.flightInfoVessel = this.vessel.flight(this.refFrameVessel);
         } catch (RPCException e) {
             throw new DriverException("Driver failed to read vessel reference frames: " + e.getMessage(), e);
         }
