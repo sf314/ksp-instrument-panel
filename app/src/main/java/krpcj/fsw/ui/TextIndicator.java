@@ -12,6 +12,7 @@ public class TextIndicator extends JPanel {
     public TextIndicator(String name) {
         super();
         this.value = 0;
+        this.name = name;
         this.valueDisplay = new JLabel();
         valueDisplay.setText(name);
 
