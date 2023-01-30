@@ -49,11 +49,12 @@ public class FlightComputer {
         }
 
         // Read telemetry from driver
-        telem.setAltitude(this.driver.getASL());
         telem.setAirspeed(this.driver.getSpeed());
-        telem.setvSpeed(this.driver.getVerticalSpeed());
         telem.setPitch(this.driver.getPitch());
         telem.setRoll(this.driver.getRoll());
+        telem.setAltitude(this.driver.getASL());
+        telem.setHeading(this.driver.getHeading());
+        telem.setvSpeed(this.driver.getVerticalSpeed());
 
         // Save current snapshot to FDR
         return telem;

@@ -32,6 +32,9 @@ public class InstrumentPanel {
     // Panels
     private AirspeedIndicator airspeedIndicator;
     private AttitudeIndicator attitudeIndicator;
+    private TextIndicator altimeter;
+    private TextIndicator compass;
+    private TextIndicator vsi;
 
     // Computer
     private FlightComputer flightComputer;
@@ -96,6 +99,9 @@ public class InstrumentPanel {
         // Update all gauges
         this.airspeedIndicator.updateValue(this.telemSnapshot.getAirspeed());
         this.attitudeIndicator.updateValue(this.telemSnapshot.getPitch(), this.telemSnapshot.getRoll());
+        this.altimeter.updateValue(this.telemSnapshot.getAltitude());
+        this.compass.updateValue(this.telemSnapshot.getHeading());
+        this.vsi.updateValue(this.telemSnapshot.getvSpeed());
 
         // Refresh!
         this.frame.invalidate();
@@ -133,10 +139,15 @@ public class InstrumentPanel {
 
         this.attitudeIndicator = new AttitudeIndicator();
         frame.add(attitudeIndicator);
-        frame.add(new JLabel("3. Altitude: 1300ft"));
 
-        frame.add(new JLabel("4. Compass: 160°"));
-        frame.add(new JLabel("5. V Spd: +500f/m"));
+        this.altimeter = new TextIndicator("Altimeter");
+        frame.add(this.altimeter);
+
+        this.compass = new TextIndicator("Compass");
+        frame.add(this.compass);
+
+        this.vsi = new TextIndicator("VSI");
+        frame.add(this.vsi);
         frame.add(new JLabel("6. ILS: |__"));
 
         frame.add(new JLabel("7. "));
