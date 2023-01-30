@@ -185,7 +185,7 @@ public class KrpcDriver {
 
     public Double getSpeed() {
         try {
-            return this.flightInfoSurf.getSpeed();
+            return Double.valueOf(this.flightInfoSurf.getTrueAirSpeed()); // not .speed() for some reason
         } catch (RPCException e) {
             throw new DriverException("Driver failed to read speed: " + e.getMessage(), e);
         }
