@@ -1,8 +1,13 @@
 package krpcj.fsw.ui;
 
 import java.awt.GridLayout;
+import java.util.concurrent.CompletableFuture;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import krpcj.fsw.computer.FlightComputer;
 import krpcj.fsw.data.Telemetry;
@@ -12,6 +17,8 @@ import krpcj.fsw.data.Telemetry;
  * access to controls.
  */
 public class InstrumentPanel {
+
+    private static final Logger logger = LoggerFactory.getLogger(InstrumentPanel.class.getSimpleName());
 
     // Frame props
     private static final String WINDOW_TITLE = "KRPC-J Instrument Panel";
@@ -28,6 +35,10 @@ public class InstrumentPanel {
 
     // Computer
     private FlightComputer flightComputer;
+
+    // Update loop
+    CompletableFuture<Void> updateLoop;
+    boolean isActive;
 
     /**
      * Constructor: Initialize, configure, and display the frame.
@@ -47,13 +58,31 @@ public class InstrumentPanel {
 
         // Initialize flight computer
         this.flightComputer = new FlightComputer();
+
+        this.isActive = true;
+        updateLoop = CompletableFuture.runAsync(() -> {
+            while (this.isActive) {
+                try {
+                    this.updateTelem();
+                    Thread.sleep(100);
+                } catch (Exception e) {
+                    logger.error("Failed update loop: " + e.getMessage(), e);
+                }
+            }
+        });
+        logger.info("Instruments successfully initialized!");
     }
 
     /**
      * Close the instrument panel
      */
     public void closeWindow() {
+        logger.info("Closing window...");
+        this.isActive = false;
+        this.flightComputer.powerOff();
+        this.updateLoop.cancel(true);
         this.frame.dispose();
+        logger.info("Window successfully closed!");
     }
 
     /**
