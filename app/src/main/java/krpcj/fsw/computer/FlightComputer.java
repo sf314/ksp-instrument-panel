@@ -26,11 +26,19 @@ public class FlightComputer {
     }
 
     public void powerOff() {
+        if ("SIM".equals(System.getenv("FSW_ENV"))) {
+            return;
+        }
+
         // i.e. from UI control
         this.driver.disconnect();
     }
 
     public void powerOn() {
+        if ("SIM".equals(System.getenv("FSW_ENV"))) {
+            return;
+        }
+
         // i.e. from UI control
         this.driver.initDriver();
     }
