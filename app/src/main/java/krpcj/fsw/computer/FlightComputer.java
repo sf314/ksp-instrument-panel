@@ -10,9 +10,13 @@ public class FlightComputer {
 
     // Default constructor
     public FlightComputer() {
-        // TODO: DISABLE AFTER TESTING
-        // this.driver = new KrpcDriver();
-        // this.driver.initDriver();
+        if (System.getenv("FSW_ENV").equals("SIM")) {
+            // SIMULATION - Only instantiate driver on real flights
+            return;
+        }
+
+        this.driver = new KrpcDriver();
+        this.driver.initDriver();
     }
 
     // Test constructor
@@ -32,17 +36,24 @@ public class FlightComputer {
     }
 
     public Telemetry getTelemetrySnapshot() {
-        // Read telemetry from driver
         Telemetry telem = new Telemetry();
-        // telem.setAltitude(this.driver.getASL());
-        // telem.setvSpeed(this.driver.getVerticalSpeed());
 
-        // TODO: DISABLE AFTER TESTING
-        telem.setAltitude(Math.random() * 10000);
-        telem.setAirspeed(Math.random() * 200.0);
-        telem.setvSpeed(Math.random() * 30 - 15.0);
-        telem.setPitch(Math.random() * 90 - 45.0);
-        telem.setRoll(Math.random() * 90 - 45.0);
+        if (System.getenv("FSW_ENV").equals("SIM")) {
+            // SIMULATION
+            telem.setAltitude(Math.random() * 10000);
+            telem.setAirspeed(Math.random() * 200.0);
+            telem.setvSpeed(Math.random() * 30 - 15.0);
+            telem.setPitch(Math.random() * 90 - 45.0);
+            telem.setRoll(Math.random() * 90 - 45.0);
+            return telem;
+        }
+
+        // Read telemetry from driver
+        telem.setAltitude(this.driver.getASL());
+        telem.setAirspeed(this.driver.getSpeed());
+        telem.setvSpeed(this.driver.getVerticalSpeed());
+        telem.setPitch(this.driver.getPitch());
+        telem.setRoll(this.driver.getRoll());
 
         // Save current snapshot to FDR
         return telem;
