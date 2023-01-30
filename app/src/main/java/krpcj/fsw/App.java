@@ -53,6 +53,7 @@ public class App {
             switch (input) {
             case 0:
                 endProg = true;
+                logger.info("Program set to end");
                 break;
             case 1:
                 logger.info("Connecting to KRPC server...");
@@ -68,8 +69,11 @@ public class App {
                 logger.info("Unrecognized input: " + input);
             }
         }
+        logger.info("Closing scanner...");
         scanner.close();
+        logger.info("Closing window...");
         instrumentPanel.closeWindow();
+        logger.info("Window and scanner closed");
     }
 
     protected Connection connectToServer() throws Exception {
