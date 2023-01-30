@@ -53,6 +53,7 @@ public class FlightComputer {
             telem.setvSpeed(Math.random() * 30 - 15.0);
             telem.setPitch(Math.random() * 90 - 45.0);
             telem.setRoll(Math.random() * 90 - 45.0);
+            telem.setHeading(Math.random() * 360);
             return telem;
         }
 
