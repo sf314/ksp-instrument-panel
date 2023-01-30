@@ -10,7 +10,7 @@ public class FlightComputer {
 
     // Default constructor
     public FlightComputer() {
-        if (System.getenv("FSW_ENV").equals("SIM")) {
+        if ("SIM".equals(System.getenv("FSW_ENV"))) {
             // SIMULATION - Only instantiate driver on real flights
             return;
         }
@@ -38,7 +38,7 @@ public class FlightComputer {
     public Telemetry getTelemetrySnapshot() {
         Telemetry telem = new Telemetry();
 
-        if (System.getenv("FSW_ENV").equals("SIM")) {
+        if ("SIM".equals(System.getenv("FSW_ENV"))) {
             // SIMULATION
             telem.setAltitude(Math.random() * 10000);
             telem.setAirspeed(Math.random() * 200.0);
