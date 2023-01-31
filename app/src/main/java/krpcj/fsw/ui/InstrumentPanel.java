@@ -126,6 +126,8 @@ public class InstrumentPanel {
      */
     protected void initLayout(JFrame frame) {
         GridLayout manager = new GridLayout(3, 3);
+        manager.setHgap(10);
+        manager.setVgap(10);
         frame.setLayout(manager);
     }
 
@@ -148,6 +150,7 @@ public class InstrumentPanel {
 
         this.vsi = new TextIndicator("VSI");
         frame.add(this.vsi);
+
         frame.add(new JLabel("6. ILS: |__"));
 
         frame.add(new JLabel("7. "));

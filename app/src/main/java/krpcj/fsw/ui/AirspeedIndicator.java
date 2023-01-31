@@ -1,5 +1,8 @@
 package krpcj.fsw.ui;
 
+import java.awt.Color;
+
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -18,6 +21,7 @@ public class AirspeedIndicator extends JPanel {
         this.add(valueDisplay);
 
         this.setVisible(true);
+        this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
     }
 
     public void updateValue(double newValue) {
