@@ -39,6 +39,9 @@ public class KrpcDriver {
     private Flight flightInfoSurf;
     private ReferenceFrame refFrameSurf;
 
+    private Flight flightInfoBody; // Required for verticalspeed
+    private ReferenceFrame refFrameBody;
+
     // Default constructor
     public KrpcDriver() {
 
@@ -103,9 +106,11 @@ public class KrpcDriver {
         try {
             this.refFrameVessel = this.vessel.getReferenceFrame();
             this.refFrameSurf = this.vessel.getSurfaceReferenceFrame();
+            this.refFrameBody = this.vessel.getOrbit().getBody().getReferenceFrame();
 
             this.flightInfoSurf = this.vessel.flight(this.refFrameSurf);
             this.flightInfoVessel = this.vessel.flight(this.refFrameVessel);
+            this.flightInfoBody = this.vessel.flight(this.refFrameBody);
         } catch (RPCException e) {
             throw new DriverException("Driver failed to read vessel reference frames: " + e.getMessage(), e);
         }
@@ -201,7 +206,7 @@ public class KrpcDriver {
 
     public Double getVerticalSpeed() {
         try {
-            return this.flightInfoSurf.getVerticalSpeed();
+            return this.flightInfoBody.getVerticalSpeed();
         } catch (RPCException e) {
             throw new DriverException("Driver failed to read vertical speed: " + e.getMessage(), e);
         }
