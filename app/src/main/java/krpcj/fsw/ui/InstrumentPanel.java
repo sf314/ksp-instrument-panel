@@ -82,8 +82,11 @@ public class InstrumentPanel {
     public void closeWindow() {
         logger.info("Closing window...");
         this.isActive = false;
-        this.flightComputer.powerOff();
         this.updateLoop.cancel(true);
+        try {
+            Thread.sleep(1000);
+        } catch (Exception e) {}
+        this.flightComputer.powerOff();
         this.frame.dispose();
         logger.info("Window successfully closed!");
     }
