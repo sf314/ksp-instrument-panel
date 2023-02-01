@@ -7,9 +7,12 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import krpcj.fsw.ui.graph.CartPoint;
+import krpcj.fsw.ui.graph.PolarPoint;
+import krpcj.fsw.util.GraphUtil;
+
 public class AirspeedIndicator extends JPanel {
     private double value;
-
     private JLabel valueDisplay;
 
     public AirspeedIndicator() {
@@ -77,10 +80,10 @@ public class AirspeedIndicator extends JPanel {
         PolarPoint right = new PolarPoint(Math.toRadians(needleDeg - 90), (double)radius * 0.05);
         PolarPoint bottom = new PolarPoint(Math.toRadians(needleDeg + 180), (double)radius * 0.05);
 
-        CartPoint tipCart = this.polarToCart(tip);
-        CartPoint leftCart = this.polarToCart(left);
-        CartPoint rightCart = this.polarToCart(right);
-        CartPoint bottomCart = this.polarToCart(bottom);
+        CartPoint tipCart = GraphUtil.polarToCart(tip);
+        CartPoint leftCart = GraphUtil.polarToCart(left);
+        CartPoint rightCart = GraphUtil.polarToCart(right);
+        CartPoint bottomCart = GraphUtil.polarToCart(bottom);
 
         int[] xCoords = {centerX + tipCart.x, centerX + leftCart.x, centerX + bottomCart.x, centerX + rightCart.x};
         int[] yCoords = {centerY - tipCart.y, centerY - leftCart.y, centerY - bottomCart.y, centerY - rightCart.y};
@@ -90,8 +93,8 @@ public class AirspeedIndicator extends JPanel {
     protected void drawDash(int angleDegrees, int length, String label, Graphics graphics, int centerX, int centerY, int radius) {
         PolarPoint polarStart = new PolarPoint(Math.toRadians(angleDegrees), radius);
         PolarPoint polarEnd = new PolarPoint(Math.toRadians(angleDegrees), radius - length);
-        CartPoint dashStart = polarToCart(polarStart);
-        CartPoint dashEnd = polarToCart(polarEnd);
+        CartPoint dashStart = GraphUtil.polarToCart(polarStart);
+        CartPoint dashEnd = GraphUtil.polarToCart(polarEnd);
 
         graphics.setColor(Color.WHITE);
 
@@ -108,36 +111,10 @@ public class AirspeedIndicator extends JPanel {
         }
 
         PolarPoint labelPolar = new PolarPoint(Math.toRadians(angleDegrees), radius - length - 10);
-        CartPoint labelCoords = polarToCart(labelPolar);
+        CartPoint labelCoords = GraphUtil.polarToCart(labelPolar);
         graphics.drawString(label,
             centerX + labelCoords.x - (label.length() * 10 / 2),
             centerY - labelCoords.y);
-    }
-
-    class PolarPoint {
-        double theta;
-        double r;
-
-        public PolarPoint(double t, double r) {
-            this.theta = t;
-            this.r = r;
-        }
-    }
-
-    class CartPoint {
-        int x;
-        int y;
-
-        public CartPoint(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
-    }
-
-    protected CartPoint polarToCart(PolarPoint polar) {
-        int x = (int)(polar.r * Math.cos(polar.theta));
-        int y = (int)(polar.r * Math.sin(polar.theta));
-        return new CartPoint(x, y);
     }
 
     protected int airspeedToAngleDeg(double airspeed) {
