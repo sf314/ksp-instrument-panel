@@ -67,7 +67,7 @@ public class InstrumentPanel {
             while (this.isActive) {
                 try {
                     this.updateTelem();
-                    Thread.sleep(100);
+                    Thread.sleep(20);
                 } catch (Exception e) {
                     logger.error("Failed update loop: " + e.getMessage(), e);
                 }
