@@ -15,6 +15,9 @@ public class AirspeedIndicator extends JPanel {
     private double value;
     private JLabel valueDisplay;
 
+    /**
+     * Constructor. Sets up the initial values and panel border.
+     */
     public AirspeedIndicator() {
         super();
         this.value = 0;
@@ -28,12 +31,19 @@ public class AirspeedIndicator extends JPanel {
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
     }
 
+    /**
+     * Update the airspeed, so it will display on the next paint cycle.
+     * @param newValue
+     */
     public void updateValue(double newValue) {
         this.value = newValue;
         String dispString = String.format("Airspeed: %.2f", this.value);
         this.valueDisplay.setText(dispString);
     }
 
+    /**
+     * Draw the airspeed indicator
+     */
     @Override
     protected void paintComponent(Graphics graphics) {
         int frameWidth = this.getWidth();
@@ -90,6 +100,16 @@ public class AirspeedIndicator extends JPanel {
         graphics.fillPolygon(xCoords, yCoords, 4);
     }
 
+    /**
+     * Utility function to draw the gauge dashes, optionally with labels.
+     * @param angleDegrees Angle of the dash from the center of the gauge. Speed of 0kts is 90deg.
+     * @param length Length of the dash
+     * @param label An optional speed label for the dash, positioned on the inner radius.
+     * @param graphics Pass in graphics context for painting.
+     * @param centerX Pass in X coordinate of the center of the panel.
+     * @param centerY Pass in Y coordinate of the center of the panel.
+     * @param radius Pass in radius of the gauge.
+     */
     protected void drawDash(int angleDegrees, int length, String label, Graphics graphics, int centerX, int centerY, int radius) {
         PolarPoint polarStart = new PolarPoint(Math.toRadians(angleDegrees), radius);
         PolarPoint polarEnd = new PolarPoint(Math.toRadians(angleDegrees), radius - length);
@@ -117,6 +137,12 @@ public class AirspeedIndicator extends JPanel {
             centerY - labelCoords.y);
     }
 
+    /**
+     * Convert an airspeed value to the angle that the needle should point on
+     * the gauge. Note that the scale of the gauge changes above 200kts.
+     * @param airspeed The airspeed, in knots.
+     * @return Angle in degrees.
+     */
     protected int airspeedToAngleDeg(double airspeed) {
         // Convert airspeed to the indicator needle's angle in degrees
         if (airspeed <= 0.0) {
