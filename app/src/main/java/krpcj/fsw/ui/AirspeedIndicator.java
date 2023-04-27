@@ -23,6 +23,8 @@ public class AirspeedIndicator extends JPanel {
         this.value = 0;
         this.valueDisplay = new JLabel();
         valueDisplay.setText("Airspeed");
+        valueDisplay.setOpaque(true);
+        valueDisplay.setBackground(Color.WHITE);
 
         // Setup display of value
         this.add(valueDisplay);
@@ -74,6 +76,7 @@ public class AirspeedIndicator extends JPanel {
         drawDash(-90,      radius / 3, "160", graphics, centerX, centerY, radius);
             drawDash(-113, radius / 6, "", graphics, centerX, centerY, radius);
 
+        // Adjust to go from 200 to 600kts, instead of just 400 (so we capture mach 1)
         drawDash(-135,     radius / 3, "200", graphics, centerX, centerY, radius);
             drawDash(-158, radius / 3, "", graphics, centerX, centerY, radius);
         drawDash(-180,     radius / 3, "300", graphics, centerX, centerY, radius);
@@ -84,7 +87,11 @@ public class AirspeedIndicator extends JPanel {
         // drawDash(this.airspeedToAngleDeg(this.value), radius, "", graphics, centerX, centerY, radius);
 
         // Needle?
-        int needleDeg = this.airspeedToAngleDeg(this.value);
+        if (this.value > 200) {
+            graphics.setColor(Color.RED);
+        }
+        double speedKnots = this.value * 1.94384; // Convert m/s to knots
+        int needleDeg = this.airspeedToAngleDeg(speedKnots);
         PolarPoint tip = new PolarPoint(Math.toRadians(needleDeg), radius);
         PolarPoint left = new PolarPoint(Math.toRadians(needleDeg + 90), (double)radius * 0.05);
         PolarPoint right = new PolarPoint(Math.toRadians(needleDeg - 90), (double)radius * 0.05);
