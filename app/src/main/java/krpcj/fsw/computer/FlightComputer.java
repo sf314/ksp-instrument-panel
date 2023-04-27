@@ -1,5 +1,8 @@
 package krpcj.fsw.computer;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import krpcj.fsw.data.Telemetry;
 import krpcj.fsw.driver.KrpcDriver;
 
@@ -8,10 +11,13 @@ public class FlightComputer {
     private KrpcDriver driver;
     private FlightDataRecorder fdr;
 
+    private static final Logger logger = LoggerFactory.getLogger(FlightComputer.class.getSimpleName());
+
     // Default constructor
     public FlightComputer() {
         if ("SIM".equals(System.getenv("FSW_ENV"))) {
             // SIMULATION - Only instantiate driver on real flights
+            logger.info("NOTE: Running Flight Computer in SIM mode");
             return;
         }
 
@@ -27,6 +33,7 @@ public class FlightComputer {
 
     public void powerOff() {
         if ("SIM".equals(System.getenv("FSW_ENV"))) {
+            logger.info("SIM: FlightComputer.powerOff() NO-OP during simulation");
             return;
         }
 
@@ -36,6 +43,7 @@ public class FlightComputer {
 
     public void powerOn() {
         if ("SIM".equals(System.getenv("FSW_ENV"))) {
+            logger.info("SIM: FlightComputer.powerOn() NO-OP during simulation");
             return;
         }
 
