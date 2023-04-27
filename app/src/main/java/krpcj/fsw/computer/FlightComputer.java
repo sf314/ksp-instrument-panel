@@ -60,7 +60,7 @@ public class FlightComputer {
             double secs = Double.valueOf(millis) / 1000.0;
 
             telem.setAltitude(Math.sin(secs) * 500 + 1000); // (500, 1500)
-            telem.setAirspeed(Math.sin(secs) * 100 + 200); // (100, 300)
+            telem.setAirspeed(Math.sin(secs) * 105 + 145); // (40, 250) ~77-485kts
             telem.setvSpeed(Math.sin(secs) * 15); // (-15, 15)
             telem.setPitch(Math.sin(secs) * 45); // (-45, 45)
             telem.setRoll(Math.sin(secs) * 45); // (-45, 45)
