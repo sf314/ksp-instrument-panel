@@ -9,6 +9,7 @@ public class KrpcjMain {
 
     public static void main(String[] args) throws Exception {
         logger.info("Starting KRPCJ Main");
+        logger.info("Environment FSW_ENV=" + System.getenv("FSW_ENV"));
 
         App app = new App();
         app.run();
