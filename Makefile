@@ -1,5 +1,5 @@
 
-.PHONY: all run clean sim
+.PHONY: all run clean sim help
 
 all:
 	./gradlew build
@@ -12,3 +12,6 @@ run:
 
 sim:
 	export FSW_ENV="SIM" && ./gradlew run
+
+help:
+	echo "make (all|clean|run|sim|help)"
